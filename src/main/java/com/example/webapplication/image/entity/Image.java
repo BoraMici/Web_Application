@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @Table(name = "images")
 public class Image {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 

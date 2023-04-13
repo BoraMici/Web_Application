@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -14,11 +15,11 @@ import java.sql.Timestamp;
 @Table(name = "likes_post")
 public class LikesPost {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "isLike")
+    @Column(name = "is_Like")
     private boolean isLike;
 
     @Column(name = "created_at")
@@ -33,5 +34,14 @@ public class LikesPost {
     @JoinColumn(name="user_id")
     private User user;
 
+    public LikesPost(Post post, User user) {
+        this.post=post;
+        this.user=user;
+        this.createdAt=new Timestamp(System.currentTimeMillis());
+        this.isLike=true;
+    }
 
+    public LikesPost() {
+
+    }
 }

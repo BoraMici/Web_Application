@@ -12,26 +12,31 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 @Entity
 @Table(name = "comments")
 public class Comment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
     @Column(name = "title")
-    private String title;
+    private String comment;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @Column(name = "updated_at" )
+    @Column(name = "updated_at")
     private Timestamp updatedAt;
 
     @Column(name = "nrLikes")
     private int numberLike;
+
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "comment_id", referencedColumnName = "id")
+    private List<LikesComment> likesComments = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     @JsonBackReference
@@ -42,4 +47,68 @@ public class Comment {
     @JsonBackReference
     @JoinColumn(name = "post_id")
     private Post post;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public int getNumberLike() {
+        return numberLike;
+    }
+
+    public void setNumberLike(int numberLike) {
+        this.numberLike = numberLike;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public List<LikesComment> getLikesComments() {
+        return likesComments;
+    }
+
+    public void setLikesComments(List<LikesComment> likesComments) {
+        this.likesComments = likesComments;
+    }
 }

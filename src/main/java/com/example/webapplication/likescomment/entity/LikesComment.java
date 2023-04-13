@@ -16,7 +16,7 @@ public class LikesComment {
     @GeneratedValue
     private int id;
 
-    @Column(name = "isLike")
+    @Column(name = "is_like")
     private boolean isLike;
 
     @Column(name = "created_at")
@@ -30,4 +30,15 @@ public class LikesComment {
     @OneToOne(cascade = CascadeType.ALL)
     @ JoinColumn(name="user_id")
     private User user;
+
+    public LikesComment(Comment comment, User user) {
+        this.comment=comment;
+        this.user=user;
+        this.createdAt=new Timestamp(System.currentTimeMillis());
+        this.isLike=true;
+    }
+
+    public LikesComment() {
+
+    }
 }
