@@ -31,8 +31,8 @@ public class Post {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "nrLikes")
-    private int nrLikes;
+    @Column(name = "nr_Likes")
+    private Integer nrLikes;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
@@ -44,7 +44,7 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id",  referencedColumnName = "id")
     private List<LikesPost> likes=new ArrayList<>();
 
@@ -57,4 +57,5 @@ public class Post {
     @Fetch(value = FetchMode.SUBSELECT)
     @JoinColumn(name = "post_id",  referencedColumnName = "id")
     private List<Image> images=new ArrayList<>();
+
 }
